@@ -1,191 +1,155 @@
-# A Three-Timescale Mathematical Framework for Operational Training and Predictive Analytics in Large-Scale Package Sorting
+# Hub Operations Mathematical Framework — Research Repository
 
 **Author:** Rafael Almeida (Employee 6068314) — UPS Chelmsford Hub  
-**Current Version:** v1.4 (Session 6, May 2026)  
-**Status:** Peer-reviewable with production-validated operational extensions  
-**Corpus:** 633 historical sorts (pre_sls, sls02, dual_sls eras)
+**Facility:** UPS Chelmsford Hub, Chelmsford MA  
+**Repository:** Central archive for all whitepaper branches of the Hub Operations research program  
+**Last updated:** May 2026 (Session 9, v3.1)
 
 ---
 
-## Overview
+## What This Repository Is
 
-This repository documents the development of a unified mathematical framework spanning four semi-independent operational systems at the UPS Chelmsford package sort facility:
+This repository documents the progressive mathematical formalization of the UPS Chelmsford package sort operation — from a validated operational model tracking live PPH and staffing data, through an idealized sensor-complete digital twin, into a purposeful systems theory of collective human performance. It is organized as three active research branches, each with its own version lineage and trajectory.
 
-| System | Timescale | Description |
-|--------|-----------|-------------|
-| **Label Training Certification (LTC)** | Per-question (1–5 sec) | ZIP-to-belt routing quiz system for sorter training |
-| **Hub Operations Tracker** | Per-snapshot (15–30 min) | Live dashboard aggregating iGate scan + SOR hours data |
-| **Operations Dashboard** | Per-sort (4 hr) | Post-sort reconciliation and supervisory reporting |
-| **MasterTrendAnalysis (v2.0+)** | Per-sort (4 hr) | 633-sort historical prediction and trend engine |
+The research began with a practical problem: building better tools to understand and predict what happens during a 4-hour twilight sort. It has grown into something larger — a multi-timescale mathematical framework that connects training (per-question), operations (per-snapshot), and historical prediction (per-sort), and that is now extending toward the behavioral, physical, and network dynamics that the operational data can only see the surface of.
 
-The framework establishes formal mathematical connections between training interventions, live operational metrics, and long-term performance prediction — a previously unmapped integration across three nested timescales.
+Every file in this repository corresponds to a real operational system at Chelmsford. Every theorem was motivated by a real data problem. Every branch exists because a real question couldn't be answered by the existing version.
 
 ---
 
-## Version History
+## Three Active Research Branches
 
-### Original / v1.0 — *Sessions 1–3*
+### Branch A — Operational Baseline: `v1.4 → v1.5`
 
-**Scope:** Initial mathematical formalization of the routing and training systems.
+**The production-validated framework. This is the authoritative baseline.**
 
-Key contributions:
-- **Ultrametric ZIP space** — $d(z_1, z_2) = 10^{5 - \ell(z_1,z_2)}$ where $\ell$ is longest common prefix length; reflexivity, symmetry, and ultrametric inequality proven (Theorem 3.1)
-- **Routing function** formalized as partial function $f: \mathcal{Z} \rightharpoonup \mathcal{B}$ on the ultrametric space with local constancy property
-- **CCHIL multivalued routing** — multifunction $\tilde{f}: Z \to \mathcal{P}(B)$ with acceptance relation $\mathcal{A} \subseteq B \times B$
-- **Belt confusion graph** $G = (B, E)$ with edge weights encoding empirical misrouting rates
-- **Sorter as discrete memoryless channel** — right-stochastic transition matrix $\mathbf{M}$, Shannon entropy $H_i$, mutual information $I(X;Y)$, channel capacity $C$
-- **Bernoulli statistics** with Wilson score confidence intervals (preferred over Wald for small-sample inference)
-- **Monoid homomorphism** structure for analytics reducers $R: \mathcal{E}^* \to S$ enabling MapReduce parallelization (Theorem 5.1)
-- **Overlay left-regular band** — pointwise override operator $f \triangleleft o$, append-only correction log (Theorem 5.2)
-- **Three-layer snapshot architecture** — Hub, Employee, Area aggregation with phase-aware Markov chain
-- **Phase-dependent Markov chain** — Ramp [0,60), Steady [60,135), Wind-Down [135,180), Post [180,240] minutes
-- **Non-homomorphic PPH aggregation** — $q_F(\mathrm{PPH}_b) \neq \mathrm{majority}(q_F(\mathrm{PPH}_{kb}))$ (Theorem 6.2)
+Everything in branches B and C is a theoretical extension of what is formalized here. v1.4 is the only version currently deployed in the tracker and prediction tools.
 
-**Document:** `whitepaper.md` (~1,100 lines, 11 sections)
+| File | Description |
+|------|-------------|
+| `whitepaper.md` / `.pdf` | Original framework (Sessions 1–3): ultrametric ZIP routing, DMC sorter model, monoid reducers, overlay algebra, phase Markov chain, PPH quantization |
+| `whitepaper_v1.1.md` / `.pdf` | Corrections: prefix metric boundary condition, Fisher information fix, Kalman random walk clarification |
+| `whitepaper_v1.2.md` / `.pdf` | Algorithm research: KDE bandwidth selection, DTW Sakoe-Chiba, Kalman cold-start, MLR scaling, CUSUM parameters; 18 knowledge gaps identified |
+| `whitepaper_v1.3.md` / `.pdf` | Academic restructure: abstract, related work (35+ citations), 13 formal theorems, peer-review format |
+| `hub_ops_mathematical_framework_v1.4.md` / `.pdf` | **Current operational version.** Adds Sort Quality Score (SQS), Jam-Breaker Two-Layer Distortion Model, Predictive Staffing and Borrow/Loan Intelligence. 16 theorems. |
 
----
+**Supporting documents:**
+- `WHITEPAPER_EVOLUTION.md` — Full v1.0→v1.3 development arc and session log
+- `SESSION_5_CONSOLIDATION_SUMMARY.md` — v1.3 work summary and peer-review checklist
+- `V1.2_RESEARCH_SUMMARY.md` — Algorithm research findings (KDE, DTW, Kalman, CUSUM)
+- `REVIEW_CORRECTIONS_v1.1.md` — Mathematical fix log
+- `KNOWLEDGE_GAPS_v1.2_RESEARCH.md` — 18 identified gaps (all closed by v1.3)
+- `WHITEPAPER_GUIDE.md` — Reading paths by audience
+- `README_v1.3_INDEX.md` — v1.3 document index
+- `README_whitepaper_v1.4.md` — v1.4 evolution summary with future directions
 
-### v1.1 — *Session 3 Corrections*
-
-**Scope:** Mathematical rigor fixes identified during internal review.
-
-Corrections:
-- **Prefix metric boundary condition:** Added $d(z,z) = 0$ explicitly to ensure reflexivity holds for the ultrametric definition
-- **Fisher Information formula:** Corrected per-question Fisher Information expression for Bernoulli skill model
-- **Kalman random walk clarification:** Clarified that state model $x_t = x_{t-1} + w_t$ is a discrete-time Gaussian random walk with Markov property
-- **Non-homomorphic worked example:** Added concrete numerical walkthrough of PPH color aggregation failure case
-
-**Document:** `whitepaper_v1.1.md` (~3,800 lines, 25 sections)
+**What v1.5 will add:**
+- Real-time SOR push integration (vs. manual export)
+- Belt-speed telemetry as an observed variable
+- ORION manifest pre-sort feed for zone load forecasting
+- Per-sort SQS time series with CUSUM monitoring
+- Hierarchical Bayesian sorter skill model fitted to LTC quiz history
 
 ---
 
-### v1.2 — *Session 4 — Algorithm Research*
+### Branch B — Idealized Digital Twin: `v2.0 → v2.1`
 
-**Scope:** Deep research into five algorithm families; production parameter identification.
+**The sensor-complete idealized model. A research vision, not yet deployed.**
 
-Research integrated:
-- **KDE bandwidth selection** — Silverman $O(n)$ rule for unimodal; Sheather-Jones $O(n^2)$ MISE minimizer for multimodal sort data; comparative production guidance added
-- **DTW Sakoe-Chiba band constraint** — $r \approx 0.1n$ reduces complexity $O(mn) \to O(m \cdot r)$, approximately 10× speedup with <2% accuracy loss for smooth PPH curves
-- **Kalman filter cold-start** — Three initialization strategies documented with transient vs. complexity tradeoffs: zero-start, empirical-prior, seasonal-prior
-- **MLR feature scaling** — Center continuous features; do not standardize across mixed categorical/continuous; interaction term guidance for phase × zone combinations
-- **CUSUM manufacturing parameters** — $K = 0.025$, $H = 5\sigma$ for 5-point skill shift detection; validated against Page (1954) and Hawkins & Olwell (2010)
+v2.0 asks: if every relevant data stream existed and was accessible in real time, what would the complete mathematical model look like? It opens the sort to its full causal environment — the logistics network outside the building, the physical infrastructure inside, and the environmental conditions that shape both.
 
-18 knowledge gaps formally identified; all subsequently closed by v1.3.
+| File | Description |
+|------|-------------|
+| `hub_ops_digital_twin_v2.0.md` / `.pdf` | **Current v2.0.** Five new layers beyond v1.4: external arrival (feeder/truck GPS as marked point process with Bayesian ETA updating), environmental (weather Markov chain, traffic delay, accident probability), physical infrastructure (conveyor belt as M/G/1 queue, induction rate, jam hazard), package composition (flowable fraction, SLIC load distribution), human factors (fatigue curves, experience heterogeneity, break schedules). Unified under a ~300-dimensional Extended Kalman Filter. Also includes Section 15: plain-language guide mapping the HTML/JS/Python tools to the mathematical framework, and explaining how every coordinator decision appears as a control input $\mathbf{u}(t)$ perturbing the coupled hub dynamics. |
 
-**Document:** `whitepaper_v1.2.md` (~11,000 lines, 25 sections)
+**Key theorems in v2.0:**
+- **Theorem 3.1** — GPS-based volume arrival forecast from pre-sort feeder positions
+- **Theorem 5.1** — Induction ceiling: when and how inbound rate exceeds belt capacity
+- **Theorem 6.1** — Effective PPH as function of flowable/non-flowable package mix
+- **Theorem 8.1** — v1.4 is obtained from v2.0 by marginalizing out all unobserved layers; prediction errors in v1.4 are the variance attributable to those layers
+- **Theorem 9.1/9.2** — Optimal belt speed control and pre-sort staffing under arrival uncertainty
 
----
+**Migration path (v1.5 → v2.0):**
 
-### v1.3 — *Session 5 — Academic Restructuring & Peer-Review Publication*
+| Step | New Data Source | Expected RMSE Reduction |
+|------|----------------|------------------------|
+| v1.5 | Real-time SOR push | ~5–8% |
+| v1.6 | Belt speed telemetry | ~8–12% |
+| v1.7 | ORION manifest pre-sort feed | ~12–18% |
+| v1.8 | Feeder GPS ETA (UPS telematics) | ~15–25% |
+| v1.9 | P-car GPS / ORION return estimates | ~8–12% |
+| v2.0 | Weather + traffic + full EKF | ~20–30% total over v1.4 |
 
-**Scope:** Full reorganization into peer-reviewable academic format with 35+ citations and 13 formal theorems.
-
-Structural additions:
-- **Abstract** (500 words) — Problem statement, contributions, validation approach
-- **Introduction** — 5 critical gaps formalized; contributions enumerated
-- **Related Work** (§2.1–§2.10) — Positioned within operations research, statistical process control, Bayesian modeling, information theory, KDE, Kalman filter, DTW, Simpson's Paradox, algebra, and database literatures; 35+ citations
-- **Limitations section** — Honest treatment of stationarity assumptions, memoryless channel approximations, Gaussian error models, computational complexity bounds, data quality constraints, and generalizability beyond Chelmsford
-- **Tier 1/2/3 recommendations** — Structured implementation roadmap for engineering teams
-
-Research findings formally integrated as theorems:
-- **Hierarchical Beta-Bernoulli skill model** (Wakefield et al., 2023): AUC 0.831 vs 0.760 baseline; per-belt coaching targets (§8.1)
-- **Simpson's Paradox stratification** (Pearl, 2009): Era (pre_sls / sls02 / dual_sls) as confounder; stratification guard for cross-era analysis (§8.2, Theorem 7.1)
-- **Quantization information loss** (Gray & Neuhoff, 1998): 40-PPH span → 3 color bands loses ~3.7 bits; rate-distortion justification for glanceable decision-making (§8.3)
-- **Tukey fence validation** — 1.5 IQR rule produces ~0.7% false positive rate on normal distributions; medcouple alternative for skewed distributions (§8.4)
-- **Random walk Markov property** (Durbin & Koopman, 2012): Kalman state model formally characterized (§8.5)
-
-**Total:** 13 formal theorems, ~32,000 words, 35+ references, peer-review ready.
-
-**Document:** `whitepaper_v1.3.md` (~1,400 lines restructured, 15 sections)
+**What v2.1 will add:**
+- Jam event auto-detection from belt speed + induction rate telemetry (no coordinator reporting required)
+- Reactive re-planning trigger: when a jam occurs, full re-optimization runs within 30 seconds
+- Monte Carlo forward simulation producing probabilistic sort-end forecast (5th/50th/95th percentile bands replacing the point estimate in the DOP Calculator)
+- Accident cascade propagation model for multi-route delay scenarios
 
 ---
 
-### v1.4 — *Session 6 — Operational Extensions: SQS, Jam-Breaker, Predictive Staffing*
+### Branch C — Purposeful Systems Theory: `v3.1 → v3.2`
 
-**Scope:** Three major new mathematical contributions grounded in live operational data collected 05-04-26 during a full sort operation (iGate + SOR export at multiple time points).
+**The behavioral and structural theory branch. A parallel theoretical investigation.**
 
-#### Section 12 — Sort Quality Score (SQS)
+Branch C asks the question Branch B cannot: why do people do what they do? v2.0 can predict what will happen physically. It cannot predict whether a sorter will scan the packages in front of them, or whether a borrow request will be honored, or whether a zone will enter a collective flow state. These are purposeful gaps — arising from the fact that every person in the hub is a purposeful agent with their own goals. Branch C formalizes this.
 
-A formally decomposable composite metric collapsing four previously disconnected performance signals into a single $[0,1]$ score:
+| File | Description |
+|------|-------------|
+| `hub_ops_purposeful_systems_v3.0.md` / `.pdf` | Foundation: Ackoff/Emery purposeful systems taxonomy applied to every hub entity; purposeful state augmentation of the v2.0 EKF (commitment $c_j$, alignment $\pi_j$); principal-agent dynamics and the compliance game; dependent type theory of hub operations (packages, sorters, zones, and sorts as dependent types; fidelity violations as type errors); category theory of the three-timescale functor hierarchy; norm formation and collective flow; seeds of multi-hub network dynamics. |
+| `hub_ops_purposeful_systems_v3.1.md` / `.pdf` | **Current v3.1 — The Emergence Principle.** Central new contribution: hub performance is an emergent property of the purposeful social system, not a sum of individual performances. Formal proof of the Emergence Gap ($\mathcal{E}(t) = T_\text{actual} - \hat{T}_\text{reduct}$); four mechanisms of emergence (pace synchronization, norm cascade, collective flow, structural coupling); Zone Social Potential Field $\Phi_z(t)$ as the correct unit of analysis for the coordinator; Reductionist Fallacy formally proven (any model using only individual-level data has strictly higher RMSE than one observing $\Phi_z$); System Design vs. Performance Management formalized as two distinct control strategies with proof that system design dominates at scale. Full plain-language exposition included. |
 
-$$\mathrm{SQS} = 0.40 \cdot \mathrm{PPH\_score} + 0.25 \cdot \mathrm{Fidelity} + 0.20 \cdot \mathrm{Staff\_adh} + 0.15 \cdot \mathrm{Quality}$$
+**The Emergence Principle in one paragraph:**  
+Individual PPH is a reductionist measurement. When you divide one person's scan count by their hours, you get a number that feels like it describes them — but it is actually the output of the zone's social dynamics acting through that person. A sorter's PPH depends on belt density, chute clearance rates, the pace set by neighbors they unconsciously synchronize to, the perceived zone norm, the quality of supervisory feedback, and whether their individual purpose has aligned with the system's purpose tonight. None of this shows up in the number. The Emergence Gap theorem proves that the variance attributable to these interaction effects exceeds the variance attributable to individual skill differences in zones with high sorter interaction density. The operational consequence: the coordinator's highest leverage is not the individual conversation but the zone condition — not performance management (correcting individual residuals) but system design (creating the social conditions under which high collective performance is the natural equilibrium).
 
-- **Definition 12.1:** PPH\_score as percentile rank within stratified peer group
-- **Definition 12.2:** FidelityScore as ratio of iGate employee-attributed scans to total scans
-- **Definition 12.3:** StaffingAdherence as $1 - |N_{\mathrm{actual}} - N_{\mathrm{planned}}| / N_{\mathrm{planned}}$
-- **Theorem 12.1 (SQS Decomposition):** SQS is a convex combination; $\sum w_i = 1$, $w_i \geq 0$ — diagnostic separability proven
-- SQS time series monitored by CUSUM; weights calibrated via OLS regression on supervisor ratings
-- Connects to Kalman (predictive SQS), FidelityScore (data quality), $N(t)$ (staffing), channel matrix $\mathbf{M}$ (quality component)
+**Key theorems in v3.1:**
+- **Theorem 3.1** — PPH as purposeful projection: $\mathrm{PPH}_j = \mathrm{PPH}^\infty_j \cdot F_j \cdot c_j \cdot \pi_j$
+- **Theorem 4.1** — FidelityScore as population-level incentive alignment: $\mathcal{F} = \frac{1}{N}\sum_j \pi_j$
+- **Theorem 5.1** — Social purpose aggregation complexity; fixed-point formulation via Brouwer
+- **Theorem 8.1** — Mixed strategy Nash equilibrium for scanning compliance; PPH rises with supervisory visibility
+- **Theorem 9.1** — Emergence gap is non-zero and operationally significant; interaction variance exceeds individual variance
+- **Theorem 9.2** — Social potential governs emergence gap; flow regime and cascade regime characterized
+- **Proposition 9.1** — Reductionist Fallacy: individual-only models have strictly bounded RMSE
+- **Theorem 9.3** — System design dominates performance management at scale for $N_z > 2$
 
-#### Section 13 — Jam-Breaker Two-Layer Distortion Model
-
-Formalizes how jam-breaker reclassification distorts PPH through two independent compounding mechanisms:
-
-- **Layer 1 (Denominator Compression):** Jam-breaker hours coded under overhead → $\delta_1 = 1 + H_\mathrm{jam}/H_\mathrm{prod}$ — PPH is inflated because denominator excludes active labor
-- **Layer 2 (Scan-Gap Volume Loss):** While jam-breaking, sorter stops scanning → missing volume $V_\mathrm{gap} = \mathrm{PPH}_\mathrm{design} \cdot \tau$ where $\tau$ is jam duration
-- **Corrected PPH formula:** $\mathrm{PPH}_\mathrm{L2} = (V + V_\mathrm{gap}) / (H_\mathrm{prod} + H_\mathrm{jam})$
-- **Theorem 13.1 (Jam-Breaker Invariance):** Corrected PPH is invariant to reclassification — proven by substitution
-- Jam correction reclassified as overlay operation $f \triangleleft o$ in the existing left-regular band algebra
-
-#### Section 14 — Predictive Staffing and Borrow/Loan Intelligence
-
-A marginal-productivity optimization framework for real-time staffing decisions:
-
-- **Definition 14.1:** Optimal zone staffing $N_z^*(t) = \lceil \mathrm{InboundRate}_z(t) / \mathrm{PPH}_{\mathrm{target},z} \rceil$
-- **Definition 14.2:** Marginal productivity $\mathrm{MP}_z(N_z) = \mathrm{PPH}_z(N_z + 1) - \mathrm{PPH}_z(N_z)$ — concave in $N_z$ under diminishing returns
-- **Definition 14.3:** Borrow signal when $\mathrm{MP}_z > \alpha \cdot \mathrm{PPH}_{\mathrm{target},z}$; loan signal when $\mathrm{MP}_z < \alpha \cdot \mathrm{PPH}_{\mathrm{target},z}$
-- **Definition 14.4:** Multi-zone staffing optimizer with 4 constraints (total headcount, zone minimums, transport feasibility, phase-gate timing)
-- **Theorem 14.1 (Borrow/Loan Optimality):** Under diminishing returns, equalizing marginal productivity across zones maximizes total hub throughput — formal proof via Lagrangian relaxation
-
-**New theorem count:** 16 (up from 13 in v1.3)  
-**New references:** Varian (2010), Pinker & Shumsky (2000)  
-**New glossary symbols:** SQS, $w_1$–$w_4$, $H_\mathrm{prod}$, $H_\mathrm{jam}$, $V_\mathrm{gap}$, $\delta_1$, $\mathrm{PPH}_\mathrm{L2}$, $\Delta$, $N_z^*(t)$, $\mathrm{MP}_z$, $\alpha$
-
-**Document:** `hub_ops_mathematical_framework_v1.4.md` (57 KB Markdown, 178 KB LaTeX-rendered PDF)
+**What v3.2 will add:**
+- Empirical validation protocol for the Zone Social Potential field (survey instruments, observation protocol, matched to iGate records)
+- Formal specification of the Sort type in Agda or Lean (machine-checkable dependent types)
+- Behavioral intervention design and evaluation: real-time norm feedback display, recognition system, flow-enabling zone assignments
+- Behavioral economics extensions: present bias, social comparison, status quo bias in the compliance model
+- Partial multi-hub pilot: New England network (Chelmsford, Watertown, Hartford, Providence, Manchester) cascade dependency quantification
 
 ---
 
-## Mathematical Contributions Summary
-
-| Version | Theorems | References | New Concepts |
-|---------|----------|------------|--------------|
-| Original/v1.0 | 0 | 0 | Ultrametric ZIP space, DMC sorter model, monoid reducers, overlay algebra, phase Markov chain, PPH quantization |
-| v1.1 | 5 | 0 | Boundary fix, Fisher Info correction, Kalman random walk |
-| v1.2 | 5 | 0 | KDE bandwidth guidance, DTW Sakoe-Chiba, Kalman cold-start, MLR scaling, CUSUM parameters |
-| v1.3 | 13 | 35+ | Hierarchical Bayes skill model, Simpson's Paradox guard, rate-distortion quantization, Tukey fence, academic restructure |
-| **v1.4** | **16** | **37+** | **Sort Quality Score, Jam-Breaker distortion model, Predictive staffing / borrow-loan optimizer** |
-
----
-
-## Repository Structure
+## Version Hierarchy
 
 ```
-hub_ops_mathematical_framework_v1.4.md    ← Current source (LaTeX-compatible Markdown)
-hub_ops_mathematical_framework_v1.4.pdf   ← Compiled PDF (xelatex, math rendered)
-README_whitepaper_v1.4.md                 ← This file
+v1.4 (operational baseline)
+  └── v1.5 (real-time SOR + belt telemetry + ORION)
+        └── v1.6 → ... → v2.0 (full digital twin)
+                              └── v2.1 (jam auto-detection + probabilistic forecast)
 
-Supporting documents (Sessions 1–5):
-  whitepaper.md                           ← Original v1.0
-  whitepaper_v1.1.md                      ← v1.1 corrections
-  whitepaper_v1.2.md                      ← v1.2 algorithm research
-  whitepaper_v1.3.md                      ← v1.3 academic restructure
-  whitepaper_v1.3.pdf                     ← v1.3 PDF
-  WHITEPAPER_EVOLUTION.md                 ← Full v1.0→v1.3 arc narrative
-  SESSION_5_CONSOLIDATION_SUMMARY.md      ← Session 5 work log
-  V1.2_RESEARCH_SUMMARY.md               ← Algorithm research findings
-  REVIEW_CORRECTIONS_v1.1.md             ← Mathematical fix log
-  KNOWLEDGE_GAPS_v1.2_RESEARCH.md        ← 18 gaps (all closed by v1.3)
-  README_v1.3_INDEX.md                    ← v1.3 document index
+v2.0 (idealized digital twin — separate branch)
+  └── v2.1 (jam auto-detection, Monte Carlo simulation)
+
+v3.0 (purposeful systems + type theory)
+  └── v3.1 (emergence principle — current)
+        └── v3.2 (empirical validation + formal verification + behavioral interventions)
+
+v4.0 (future — multi-hub national/global network dynamics)
+  └── Built on: v2.0 EKF × v3.1 purposeful systems × categorical network composition
 ```
+
+Every version is a **formal restriction** of its successors. v1.4 is obtainable from v2.0 by marginalizing out unobserved layers (Theorem 8.1 in v2.0). v2.0 is obtainable from v3.1 by zeroing the purposeful state layer and assuming full compliance. v3.1 is obtainable from v4.0 by restricting the hub network category to a single hub. No version is made obsolete by a higher one — each is the correct model for its level of data availability.
 
 ---
 
-## Compiling the PDF
+## Compiling the PDFs
 
-Requires `pandoc` (≥ 2.9) and a TeX distribution with `xelatex`. A separate header file handles theorem environments:
+All PDFs in this repository are compiled from Markdown source using pandoc + xelatex. Requires pandoc ≥ 2.9 and a TeX distribution with xelatex.
 
 ```bash
-# Create latex_header.tex with theorem declarations
+# Create the LaTeX header file (theorem environments)
 cat > latex_header.tex << 'EOF'
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{booktabs,longtable,array}
@@ -198,9 +162,9 @@ cat > latex_header.tex << 'EOF'
 \newtheorem*{remark}{Remark}
 EOF
 
-# Compile
-pandoc hub_ops_mathematical_framework_v1.4.md \
-  -o hub_ops_mathematical_framework_v1.4.pdf \
+# Compile any document
+pandoc <filename>.md \
+  -o <filename>.pdf \
   --pdf-engine=xelatex \
   --highlight-style=tango \
   -H latex_header.tex
@@ -208,69 +172,52 @@ pandoc hub_ops_mathematical_framework_v1.4.md \
 
 ---
 
-## Future Directions
+## Theorem Count by Version
 
-### Tier 1 — Near-Term Implementation (Weeks 1–4)
-
-These are validated and production-ready. Engineering effort is incremental against existing tracker and MasterTrendAnalysis infrastructure.
-
-- **SQS deployment:** Add composite score field to Hub Operations Tracker snapshot; expose per-component breakdown in Area tab; display trend sparkline in Dashboard
-- **Jam-breaker correction flag:** Add `overhead_share` field to iGate employee export processing; apply Layer 1 + Layer 2 correction when flag active; surface corrected vs. raw PPH side-by-side
-- **CUSUM per-sorter monitoring:** Deploy $K=0.025$, $H=5\sigma$ control limits on rolling per-sorter PPH; alert coordinator when shift detected
-- **KDE bandwidth benchmarking:** A/B test Silverman vs. Sheather-Jones on current 633-sort corpus; measure RMSE per era
-- **Tukey fence empirical validation:** Run $1.5 \cdot \mathrm{IQR}$ rule on historical outlier-flagged sorts; measure false positive rate vs. supervisor ground truth; test medcouple for skewed distributions
-
-### Tier 2 — Medium-Term Analysis (Weeks 4–12)
-
-- **SQS time series and CUSUM integration:** Run CUSUM on weekly SQS trajectory per belt zone; detect sustained degradation patterns
-- **Hierarchical Bayesian skill model (LTC):** Fit Beta-Bernoulli hierarchical model on per-sorter quiz history; compare AUC to flat logistic regression baseline; feed per-belt skill estimates back to tracker coaching flags
-- **Borrow/loan database:** Log every borrow/loan event with zone, time, $\Delta\mathrm{PPH}$ before/after; empirically estimate $\mathrm{MP}_z(N_z)$ curves per zone; calibrate $\alpha$ threshold
-- **Simpson's Paradox quantification:** Identify which trend comparisons reverse sign across era stratification in 633-sort corpus; document as formal anomaly log
-- **Phase-dependent adaptive thresholds:** Replace static PPH color bands with phase-stratified percentile bands; use KDE per phase per zone to set 25th/75th/90th percentile cutoffs dynamically
-- **Kalman initialization benchmarking:** Compare zero-start, empirical-prior, and seasonal-prior cold-start strategies on RMSE at sort minutes 0–30
-- **Door ratio leading indicator:** Correlate inbound door turn rate with final sort PPH; if $r > 0.6$, promote to Kalman observation variable
-
-### Tier 3 — Long-Term Integration (Months 3–6)
-
-- **LTC ↔ Tracker bidirectional link:** Export per-sorter, per-belt skill confidence from LTC quiz history; display coaching priority flag on Tracker roster; update skill estimates post-sort
-- **Tracker ↔ MasterTrendAnalysis real-time loop:** Send Kalman filter 30-min-ahead PPH prediction to Tracker's DOP Calculator as live pace overlay; update prediction on each new snapshot
-- **Jam-breaker schema v1.8:** Extend iGate export parser to carry `overhead_share`, `jam_duration_min`, `V_gap` fields; automate Layer 1 + Layer 2 correction in preprocessing pipeline
-- **Multi-zone predictive staffing optimizer:** Implement Definition 14.4 multi-zone optimizer as standalone module; input: real-time inbound rate by zone; output: recommended borrow/loan moves with ETA
-- **Three-timescale feedback closure:** Wire the full loop — LTC skill gaps → coaching targets → tracker roster → operational PPH → MasterTrendAnalysis peer group update → back to LTC difficulty weights
-- **Per-era algorithm comparison table:** Benchmark DTW, KDE, MLR, Kalman, weighted median against held-out test set for each era (pre_sls, sls02, dual_sls) separately; publish best-algorithm recommendation per era
-- **Mobile companion (ngrok):** Expose Tracker and DOP Calculator via ngrok tunnel to enable coordinator phone access mid-sort without desktop dependency
-- **Sort quality benchmarking across facilities:** Generalize SQS weight calibration methodology as a facility-agnostic procedure; document parameter survey for extension to other UPS hubs
-
-### Research Extensions
-
-- **Multi-facility generalization:** Mathematical abstractions (ultrametric space, monoid reducers, phase Markov chains) are facility-agnostic; parameter values are Chelmsford-specific. Develop a calibration protocol for extending the framework to other hubs.
-- **Jam-breaker interaction effects:** Investigate whether Layer 1 and Layer 2 distortions are truly independent or whether covariance exists (e.g., high-jam zones may also have systematically different inbound rates)
-- **Non-Gaussian sorter channel models:** Relax Gaussian error assumption; test whether mixture models or heavy-tailed distributions better fit the empirical confusion matrix $\mathbf{M}$
-- **Reinforcement learning for borrow/loan:** Frame the multi-zone staffing problem as a finite-horizon MDP; compare RL policy against greedy marginal-productivity rule
-- **Conference/journal submission:** Framework is suitable for operations research (INFORMS), applied statistics (JASA), or industrial engineering venues; v1.3 is the submission-ready base
+| Version | Theorems | Definitions | References | Key Additions |
+|---------|----------|-------------|------------|---------------|
+| v1.0–v1.1 | 5 | — | 0 | Ultrametric, DMC, monoid algebra, phase Markov, PPH quantization |
+| v1.2 | 5 | — | 0 | KDE, DTW, Kalman, MLR, CUSUM |
+| v1.3 | 13 | — | 35+ | Hierarchical Bayes, Simpson's Paradox, rate-distortion, Tukey fence |
+| v1.4 | 16 | — | 37+ | SQS, Jam-Breaker distortion, predictive staffing |
+| v2.0 | +11 | 10+ | 45+ | GPS arrival process, belt queue, fatigue, EKF, digital twin |
+| v3.0 | +8 | 9 | 55+ | Purposeful taxonomy, type theory, category theory, multi-hub seeds |
+| **v3.1** | **+8** | **6** | **60+** | **Emergence principle, zone social potential, system design vs. PM** |
 
 ---
 
 ## Session Log
 
-| Session | Date | Focus | Output |
-|---------|------|-------|--------|
-| 1 | 2025 | Initial formalization — routing, channel model, monoid algebra | `whitepaper.md` |
-| 2 | 2025 | Tracker integration — snapshot architecture, Markov phases, PPH quantization | `whitepaper.md` (extended) |
-| 3 | 2025 | Mathematical corrections — boundary conditions, Fisher info, worked examples | `whitepaper_v1.1.md` |
-| 4 | 2026-05 | Algorithm research — KDE, DTW, Kalman, MLR, CUSUM; 18 gaps identified and closed | `whitepaper_v1.2.md` |
-| 5 | 2026-05-12 | Academic restructuring — abstract, related work (35+ citations), 13 theorems, peer-review format | `whitepaper_v1.3.md/pdf` |
-| 6 | 2026-05-12 | Operational extensions — SQS, Jam-Breaker distortion, Predictive staffing (16 theorems total) | `hub_ops_mathematical_framework_v1.4.md/pdf` |
+| Session | Date | Version | Focus |
+|---------|------|---------|-------|
+| 1 | 2025 | v1.0 | Initial formalization: routing, channel model, monoid algebra |
+| 2 | 2025 | v1.0 | Tracker integration: snapshot architecture, Markov phases, PPH quantization |
+| 3 | 2025 | v1.1 | Mathematical corrections: boundary conditions, Fisher info, worked examples |
+| 4 | 2026-05 | v1.2 | Algorithm research: KDE, DTW, Kalman, MLR, CUSUM; 18 gaps identified |
+| 5 | 2026-05-12 | v1.3 | Academic restructure: abstract, related work, 13 theorems, 35+ citations |
+| 6 | 2026-05-12 | v1.4 | SQS, Jam-Breaker Two-Layer Distortion, Predictive Staffing/Borrow-Loan |
+| 7 | 2026-05-12 | v2.0 | GPS/weather/belt/fatigue digital twin; EKF; plain-language tool mapping |
+| 8 | 2026-05-12 | v3.0 | Purposeful systems, dependent type theory, category theory, multi-hub seeds |
+| 9 | 2026-05-12 | v3.1 | The Emergence Principle: PPH as social property; zone social potential; system design vs. performance management |
 
 ---
 
-## Acknowledgments
+## The Central Thesis, in Plain Language
 
-This framework was developed during live operations at the UPS Chelmsford hub, grounded in empirical data from iGate scanning systems, SOR staffing records, and 633 historical sort exports spanning three operational eras. All mathematical abstractions are validated against or directly derived from production operational data.
+The hub sort is not a machine. It is a purposeful social system — a collection of people who each have their own goals, who read their social environment and make choices based on what they observe, and whose collective behavior produces an output (sorted packages) that cannot be understood by measuring any individual alone.
+
+The PPH number displayed in the tracker is not a property of any individual sorter. It is a record of the zone's social dynamics acting through that person — shaped by belt density, chute clearance rates, the pace set by neighboring sorters, the perceived zone norm, supervisory visibility, and whether individual purpose has aligned with system purpose. The Emergence Gap theorem in v3.1 proves that the variance attributable to these interaction effects exceeds the variance attributable to individual skill differences.
+
+The operational consequence: the coordinator's highest leverage is the zone condition, not the individual conversation. Creating the conditions under which high collective performance is the natural equilibrium — that is system design. Identifying and correcting individual underperformers — that is performance management. Both are necessary. Only the first scales.
+
+The mathematical framework exists to make this legible: to give names and structure to what is already happening on the floor, to identify what is being measured and what is being missed, and to point toward the sensors, models, and organizational designs that would close the gap between what we can observe and what is actually driving the sort.
 
 ---
 
-**Author:** Rafael Almeida, Employee 6068314  
-**Facility:** UPS Chelmsford Hub  
-**Framework:** Three-Timescale Mathematical Framework for Operational Training and Predictive Analytics  
-**Current version:** v1.4 — May 2026
+## Author
+
+**Rafael Almeida**, Employee 6068314  
+Hub Operations Coordinator  
+UPS Chelmsford Hub, Chelmsford, MA  
+
+*This research was developed during live operations at the UPS Chelmsford hub, grounded in empirical data from iGate scanning systems, SOR staffing records, and 633 historical sort exports spanning three operational eras (pre_sls, sls02, dual_sls). All mathematical abstractions are validated against or directly derived from production operational data.*
