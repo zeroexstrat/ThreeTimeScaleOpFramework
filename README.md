@@ -97,25 +97,25 @@ Branch C asks the question Branch B cannot: why do people do what they do? v2.0 
 | File | Description |
 |------|-------------|
 | `hub_ops_purposeful_systems_v3.0.md` / `.pdf` | Foundation: Ackoff/Emery purposeful systems taxonomy applied to every hub entity; purposeful state augmentation of the v2.0 EKF (commitment $c_j$, alignment $\pi_j$); principal-agent dynamics and the compliance game; dependent type theory of hub operations (packages, sorters, zones, and sorts as dependent types; fidelity violations as type errors); category theory of the three-timescale functor hierarchy; norm formation and collective flow; seeds of multi-hub network dynamics. |
-| `hub_ops_purposeful_systems_v3.1.md` / `.pdf` | **Current v3.1 — The Emergence Principle.** Central new contribution: hub performance is an emergent property of the purposeful social system, not a sum of individual performances. Formal proof of the Emergence Gap ($\mathcal{E}(t) = T_\text{actual} - \hat{T}_\text{reduct}$); four mechanisms of emergence (pace synchronization, norm cascade, collective flow, structural coupling); Zone Social Potential Field $\Phi_z(t)$ as the correct unit of analysis for the coordinator; Reductionist Fallacy formally proven (any model using only individual-level data has strictly higher RMSE than one observing $\Phi_z$); System Design vs. Performance Management formalized as two distinct control strategies with proof that system design dominates at scale. Full plain-language exposition included. |
+| `hub_ops_purposeful_systems_v3.1.md` / `.pdf` | The Emergence Principle. Central new contribution: hub performance is an emergent property of the purposeful social system, not a sum of individual performances. Formal proof of the Emergence Gap; four mechanisms of emergence; Zone Social Potential Field; Reductionist Fallacy formally proven; System Design vs. Performance Management formalized as two distinct control strategies with proof that system design dominates at scale. Plain-language exposition. |
+| `hub_ops_purposeful_systems_v3.2.md` / `.pdf` | **Current v3.2 — Logic Audit, Gap Closure, Concrete Examples Throughout.** Same mathematical structure as v3.1, now fully grounded: worked numerical examples at every definition and theorem; Brouwer fixed-point argument completed with compactness/convexity justification; Nash equilibrium scanning rate worked numerically (Jordan: equilibrium at 50% capacity at $\bar{p}=0.25$); Zone Social Potential OLS calibration protocol; Theorem 9.2 monotonicity argued per-mechanism; flow threshold operationalization with calibration from sort history; emergence gap computed on concrete May 4 sort (−281 packages, decomposed by mechanism); all four emergence mechanisms with specific floor examples; borrow/loan explicitly connected to System Design control law; Appendix C: three extended worked scenarios. |
 
 **The Emergence Principle in one paragraph:**  
 Individual PPH is a reductionist measurement. When you divide one person's scan count by their hours, you get a number that feels like it describes them — but it is actually the output of the zone's social dynamics acting through that person. A sorter's PPH depends on belt density, chute clearance rates, the pace set by neighbors they unconsciously synchronize to, the perceived zone norm, the quality of supervisory feedback, and whether their individual purpose has aligned with the system's purpose tonight. None of this shows up in the number. The Emergence Gap theorem proves that the variance attributable to these interaction effects exceeds the variance attributable to individual skill differences in zones with high sorter interaction density. The operational consequence: the coordinator's highest leverage is not the individual conversation but the zone condition — not performance management (correcting individual residuals) but system design (creating the social conditions under which high collective performance is the natural equilibrium).
 
-**Key theorems in v3.1:**
-- **Theorem 3.1** — PPH as purposeful projection: $\mathrm{PPH}_j = \mathrm{PPH}^\infty_j \cdot F_j \cdot c_j \cdot \pi_j$
-- **Theorem 4.1** — FidelityScore as population-level incentive alignment: $\mathcal{F} = \frac{1}{N}\sum_j \pi_j$
-- **Theorem 5.1** — Social purpose aggregation complexity; fixed-point formulation via Brouwer
-- **Theorem 8.1** — Mixed strategy Nash equilibrium for scanning compliance; PPH rises with supervisory visibility
-- **Theorem 9.1** — Emergence gap is non-zero and operationally significant; interaction variance exceeds individual variance
-- **Theorem 9.2** — Social potential governs emergence gap; flow regime and cascade regime characterized
+**Key theorems in v3.2 (unchanged from v3.1, now with worked examples):**
+- **Theorem 3.1** — PPH as purposeful projection: $\mathrm{PPH}_j = \mathrm{PPH}^\infty_j \cdot F_j \cdot c_j \cdot \pi_j$ — *worked: Marcus 235 predicted, 290 actual; Diana 152 predicted, 145 actual*
+- **Theorem 4.1** — FidelityScore as population-level incentive alignment: $\mathcal{F} = \frac{1}{N}\sum_j \pi_j$ — *worked: May 4 FidelityScore = 0.900, design vs. PM impact compared*
+- **Theorem 5.1** — Social purpose aggregation complexity; fixed-point formulation via Brouwer — *logic gap closed: compactness/convexity of $[0,1]^N$ established; norm cascade narrative added*
+- **Theorem 8.1** — Mixed strategy Nash equilibrium for scanning compliance — *worked: equilibrium effort = 50% at $\bar{p}=0.25$; recognition system achieves same effect at half the monitoring cost*
+- **Theorem 9.1** — Emergence gap is non-zero and operationally significant — *worked: May 4 Zone 4 gap = −281 packages, decomposed by mechanism*
+- **Theorem 9.2** — Social potential governs emergence gap — *monotonicity argued per-mechanism; worked: $\Delta\Phi_z = 0.29$ maps to 606-package swing across two comparable sorts*
 - **Proposition 9.1** — Reductionist Fallacy: individual-only models have strictly bounded RMSE
-- **Theorem 9.3** — System design dominates performance management at scale for $N_z > 2$
+- **Theorem 9.3** — System design dominates performance management at scale — *worked: two-coordinator scenario, Rafael's blocks produce 135 more packages than Alex's blocks over comparable time*
 
-**What v3.2 will add:**
-- Empirical validation protocol for the Zone Social Potential field (survey instruments, observation protocol, matched to iGate records)
+**What v3.3 will add (next version):**
+- Empirical validation protocol for the Zone Social Potential field (survey instruments matched to iGate records)
 - Formal specification of the Sort type in Agda or Lean (machine-checkable dependent types)
-- Behavioral intervention design and evaluation: real-time norm feedback display, recognition system, flow-enabling zone assignments
 - Behavioral economics extensions: present bias, social comparison, status quo bias in the compliance model
 - Partial multi-hub pilot: New England network (Chelmsford, Watertown, Hartford, Providence, Manchester) cascade dependency quantification
 
@@ -182,7 +182,8 @@ pandoc <filename>.md \
 | v1.4 | 16 | — | 37+ | SQS, Jam-Breaker distortion, predictive staffing |
 | v2.0 | +11 | 10+ | 45+ | GPS arrival process, belt queue, fatigue, EKF, digital twin |
 | v3.0 | +8 | 9 | 55+ | Purposeful taxonomy, type theory, category theory, multi-hub seeds |
-| **v3.1** | **+8** | **6** | **60+** | **Emergence principle, zone social potential, system design vs. PM** |
+| v3.1 | +8 | 6 | 60+ | Emergence principle, zone social potential, system design vs. PM |
+| **v3.2** | **+0** | **+3** | **60+** | **Logic audit; concrete examples at every theorem; Appendix C; OLS calibration; gap closure** |
 
 ---
 
@@ -199,6 +200,7 @@ pandoc <filename>.md \
 | 7 | 2026-05-12 | v2.0 | GPS/weather/belt/fatigue digital twin; EKF; plain-language tool mapping |
 | 8 | 2026-05-12 | v3.0 | Purposeful systems, dependent type theory, category theory, multi-hub seeds |
 | 9 | 2026-05-12 | v3.1 | The Emergence Principle: PPH as social property; zone social potential; system design vs. performance management |
+| 10 | 2026-05-12 | v3.2 | Logic audit and gap closure; concrete examples at every theorem; Brouwer argument completed; Nash equilibrium worked numerically; emergence gap computed on May 4 sort; four mechanisms with floor examples; OLS calibration protocol for Zone Social Potential; Appendix C: three extended worked scenarios |
 
 ---
 
