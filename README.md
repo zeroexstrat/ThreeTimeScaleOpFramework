@@ -3,7 +3,7 @@
 **Author:** Rafael Almeida (Employee 6068314) — UPS Chelmsford Hub  
 **Facility:** UPS Chelmsford Hub, Chelmsford MA  
 **Repository:** Central archive for all whitepaper branches of the Hub Operations research program  
-**Last updated:** May 2026 (Session 16, v4.0 — Unified Synthesis)
+**Last updated:** May 2026 (Session 17, v4.1 + v1.6 — Empirical Validation Pass)
 
 ---
 
@@ -19,34 +19,43 @@ Every file in this repository corresponds to a real operational system at Chelms
 
 ## Four Research Branches (+ Unified Synthesis)
 
-### Branch D — Unified Synthesis: `v4.0`
+### Branch D — Unified Synthesis: `v4.0 → v4.1`
 
 **The concrete→theory→concrete bridge. Generated using the Self-Backtracking framework.**
 
-v4.0 treats v1.5, v2.1, and v3.6 as three parallel greedy decoding candidates that each reached a local optimum. The backtrack trigger: none of the three branches fully closes the loop from raw data architecture to coordinator decision to operational result. v4.0 backtracks to the concrete — the actual tool code, the DATA object, the lag topology, the coordinator workflow — and regenerates the framework from there.
+v4.0 treats v1.5, v2.1, and v3.6 as three parallel greedy decoding candidates that each reached a local optimum. The backtrack trigger: none of the three branches fully closes the loop from raw data architecture to coordinator decision to operational result. v4.0 backtracks to the concrete — the actual tool code, the DATA object, the lag topology, the coordinator workflow — and regenerates the framework from there. v4.1 then turns the same Self-Backtracking methodology on v4.0 itself, after a snapshot-resolved validation pass refuted one of v4.0's three structural-constant claims.
 
 | File | Description |
 |------|-------------|
-| `hub_ops_unified_framework_v4.0.md` / `.pdf` | **Current v4.0.** Three new contributions: (1) **CURE×PD Coupling (Theorem 5.1)** — CURE destination utilization × ZIP→belt truth table = per-zone dock pressure score; closes the Theorem 16.1 bottleneck regime for concrete coordinator decisions. (2) **Lag Topology (Definition 2.3)** — K_live ⊂ K_sornight ⊂ K_nextday formalizes the three knowledge states available during the sort; mixing them produces systematically misleading numbers. (3) **Fidelity Cascade (Definition 6.1, Theorem 6.1)** — LTC quiz accuracy → SEAS scan accuracy → LIB service failure rate as a monotone quality chain; the LTC ceiling bounds the minimum achievable misload rate. Also: Instrument Complementarity (Proposition 4.1 — iGate ≠ SOR, each authoritative for different quantities); Borrowed Employee Fidelity Gap (Corollary 4.1 — structural gap invisible without both instruments); Three Named Structural Constants (κ₉₋₁₂ = 0.311, γ = 0.938, ε_schema = 0.050); Sort Phase State Machine (§9, Phases 0–3 with phase-aware computation schedule); Self-Backtracking as generative methodology (§8). |
+| `hub_ops_unified_framework_v4.0.md` / `.pdf` | v4.0. Three new contributions: (1) **CURE×PD Coupling (Theorem 5.1)** — CURE destination utilization × ZIP→belt truth table = per-zone dock pressure score; closes the Theorem 16.1 bottleneck regime for concrete coordinator decisions. (2) **Lag Topology (Definition 2.3)** — K_live ⊂ K_sornight ⊂ K_nextday formalizes the three knowledge states available during the sort; mixing them produces systematically misleading numbers. (3) **Fidelity Cascade (Definition 6.1, Theorem 6.1)** — LTC quiz accuracy → SEAS scan accuracy → LIB service failure rate as a monotone quality chain; the LTC ceiling bounds the minimum achievable misload rate. Also: Instrument Complementarity (Proposition 4.1); Borrowed Employee Fidelity Gap (Corollary 4.1); Three Named Structural Constants (κ₉₋₁₂ = 0.311, γ = 0.938, ε_schema = 0.050); Sort Phase State Machine (§9, Phases 0–3); Self-Backtracking as generative methodology (§8). |
+| `hub_ops_unified_framework_v4.1.md` / `.pdf` | **Current v4.1.** Empirical validation pass over v4.0 using snapshot-resolved 05.04–05.08 data (62 raw xlsx in `in_Sort_05.04.26/` plus four sister day folders, 620 historical sorts in MTA). Five figures embedded. Result: κ_9-12 holds (mean 0.311, std 0.010 across 5 sorts); γ holds (0.934 iGate / 0.940 MTA, vs claimed 0.938); **ε_schema is refuted as a constant** — it grows 5%→15% across the week (Theorem 15.1, replaces v4.0 §7 constant). **Theorem 15.2** introduces phase-aware κ_z: 0.20 (Phase 0) → 0.30 (Phase 1) → 0.31 (Phase 2) → 0.33 (Phase 3) inside one sort. **Fourth structural constant added:** ρ_PD/Hub ≈ 0.65 (the PD-belt share of iGate Hub Summary Total). Five concrete action items for the suite (§16): tracker Sort Phase chip, day-aware reconciliation threshold, richer DOP module; dashboard phase-profile tile; container version-string consistency; MTA snapshot append + Φz computation + 188.6 hunt. v4.0 §§1–14 are unchanged except for the §7 amendment in v4.1 §15.4. |
+| `figures/fig_a_kappa_9_12_weekly.png` | Figure A — Zone 9-12 share across 5 sorts (Theorem 15.1 supporting data) |
+| `figures/fig_b_gamma_weekly_decay.png` | Figure B — Weekly γ decay vs theory |
+| `figures/fig_c_epsilon_schema_growth.png` | Figure C — ε_schema growth Mon→Fri (refutes v4.0 §7 constant) |
+| `figures/fig_d_kappa_intra_sort.png` | Figure D — Intra-sort κ_9-12 trajectory across 21 snapshots of 05.04 |
+| `figures/fig_e_avgpph_trajectory.png` | Figure E — avgPPH trajectory: claimed (v3.6 §13.5) vs. four empirical measures |
 
 **Supporting integration document:**
 - `CHEMA_Analytics_Roadmap.md` / `.pdf` — Implementation plan: how v1.5/v2.1/v3.6/v4.0 findings flow to tracker, dashboard, DOP Calculator, sort-snapshot analytics, and Tailscale pipeline (Tiers 1–4)
 
-**What v4.1 will add (in priority order):**
+**v4.1 delivered:** Empirical validation pass (Figures A–E), ε_schema demoted to a function (Thm 15.1), phase-aware κ_z (Thm 15.2), ρ_PD/Hub added, five action items issued for the suite.
+
+**What v4.2 will add (in priority order):**
 1. SLIC→PD mapping (unlocks Theorem 5.1 full computation + pre-sort mode)
 2. Belt-level Fidelity Cascade view (joins LTC + SEAS + LIB in one dashboard panel)
-3. Phase-aware PPH thresholds (tracker Hub tab labels current phase; adjusts conditional formatting)
+3. Phase-aware PPH thresholds (tracker Hub tab labels current phase; adjusts conditional formatting) — partially landed via v4.1 §16.1
 4. Pre-sort container mode (headcount formula: V_plan × γ^(d-1) × κ_Zi / PPH_target × 4)
+5. v4.1 §16.4 follow-through — MTA snapshot append + Φz computation + resolution of the 188.6 datum origin
 
 ---
 
 ## Three Active Research Branches
 
-### Branch A — Operational Baseline: `v1.4 → v1.5`
+### Branch A — Operational Baseline: `v1.4 → v1.5 → v1.6`
 
 **The production-validated framework. This is the authoritative baseline.**
 
-Everything in branches B and C is a theoretical extension of what is formalized here. v1.5 is the current version, extending v1.4 with empirically grounded quality data streams from the 05.04–05.08 five-sort week.
+Everything in branches B and C is a theoretical extension of what is formalized here. v1.6 is the current version, extending v1.5 with three new sections (§§23–25) carrying the empirical recalibration from the snapshot-resolved 05.04–05.08 re-pass.
 
 | File | Description |
 |------|-------------|
@@ -55,7 +64,8 @@ Everything in branches B and C is a theoretical extension of what is formalized 
 | `whitepaper_v1.2.md` / `.pdf` | Algorithm research: KDE bandwidth selection, DTW Sakoe-Chiba, Kalman cold-start, MLR scaling, CUSUM parameters; 18 knowledge gaps identified |
 | `whitepaper_v1.3.md` / `.pdf` | Academic restructure: abstract, related work (35+ citations), 13 formal theorems, peer-review format |
 | `hub_ops_mathematical_framework_v1.4.md` / `.pdf` | Adds Sort Quality Score (SQS), Jam-Breaker Two-Layer Distortion Model, Predictive Staffing and Borrow/Loan Intelligence. 16 theorems. |
-| `hub_ops_mathematical_framework_v1.5.md` / `.pdf` | **Current v1.5.** New §§17–22: SEAS integration (3 export types, 24h lag, 05.04 ground truth, UNASSIGNED as SOR mismatch proxy); SQS real-data calibration (5-sort table: misload rates 0.051–0.072%, LIB rates 0.112–0.170%, SEAS scan eff 98.7%); misload taxonomy (7 types with 4-sort counts; AUTO MISLOAD >20 = pre-sort structural alert); LIB analysis (Theorem 17.1 — LIB as inverse throughput signal; UNASSIGNED exclusion rule); CURE coupling (Theorem 21.1 — CURE-PPH coupling: ∂SQS/∂λ_sort < 0 above dock utilization 90%); Python auto-ingestion spec (8 function signatures + SQS computation pipeline). |
+| `hub_ops_mathematical_framework_v1.5.md` / `.pdf` | v1.5. New §§17–22: SEAS integration (3 export types, 24h lag, 05.04 ground truth, UNASSIGNED as SOR mismatch proxy); SQS real-data calibration (5-sort table: misload rates 0.051–0.072%, LIB rates 0.112–0.170%, SEAS scan eff 98.7%); misload taxonomy (7 types with 4-sort counts; AUTO MISLOAD >20 = pre-sort structural alert); LIB analysis (Theorem 17.1 — LIB as inverse throughput signal); CURE coupling (Theorem 21.1); Python auto-ingestion spec (8 function signatures + SQS pipeline). |
+| `hub_ops_mathematical_framework_v1.6.md` / `.pdf` | **Current v1.6.** Empirical recalibration extending v1.5 with three new sections. **§23** redefines ε_schema as a function of day/volume-mix; Theorem 23.1 shows |ε_schema(d)| ≈ 0.050 · exp(0.275·(d − Mon)), with the empirical values 5%, —, —, 9.9%, 15.1% Mon→Fri (the constant claim in v1.5 §17 is right only for Monday). **§24** introduces operationalized sort phases (Definition 24.1 — pre-induction / ramp / steady / close by elapsed-volume fraction) and proves κ_z is phase-aware (Theorem 24.1 — 0.26 / 0.30 / 0.31 / 0.33 for Phases 0/1/2/3 on 05.04). **§25** recalibrates the avgPPH trajectory: the 166 → 188.6 → 155 series from v3.6 §13.5 is not reproducible from final iGate Employee Summary exports; four alternative empirical measures provided, MTA-aligned series 131 → 129 → 127 → 123 → 114 proposed as canonical replacement. Reaffirms §§17–22 (γ ≈ 0.938 within rounding; SQS rates within rounding; Wednesday +6.5% claim does not hold for this off-peak week). |
 
 **Supporting documents:**
 - `WHITEPAPER_EVOLUTION.md` — Full v1.0→v1.3 development arc and session log
@@ -68,11 +78,15 @@ Everything in branches B and C is a theoretical extension of what is formalized 
 - `README_whitepaper_v1.4.md` — v1.4 evolution summary with future directions
 - `CHEMA_Analytics_Roadmap.md` / `.pdf` — **Integration roadmap:** how v1.5/v2.1/v3.6 findings flow into tracker, dashboard, DOP Calculator, sort-snapshot analytics, and Tailscale pipeline
 
-**What v1.6 will add:**
+**v1.6 delivered:** Empirical recalibration §§23–25 with embedded figures; ε_schema function, phase-aware κ_z, avgPPH trajectory recalibration; reaffirms γ and the rest of §§17–22.
+
+**What v1.7 will add:**
 - Real-time SOR push integration (vs. manual export) via Tailscale Phase 1
 - Belt-speed telemetry as an observed variable
 - ORION manifest pre-sort feed for zone load forecasting
-- Per-sort SQS time series with CUSUM monitoring
+- Per-snapshot phase labels archived alongside Hub Summary exports — enables phase-resolved κ_z, PPH bands, and Φz priors automatically
+- Weekly γ posterior with conjugate Beta prior, updated each Friday end-of-sort
+- ε_schema(d) empirical fit refreshed every week, exposed in the volume reconciliation banner
 - XGBoost coordinator recommendation panel (v3.4 §10.9 full ML pipeline)
 
 ---
@@ -163,9 +177,11 @@ Individual PPH is a reductionist measurement. When you divide one person's scan 
 
 ```
 v1.4 (operational baseline — SQS, Jam-Breaker, Predictive Staffing)
-  └── v1.5 (SEAS/LIB/Misload/CURE grounding; 8-function Python ingestion; SQS calibration — current)
-        └── v1.6 (real-time SOR push + belt telemetry; XGBoost recommendation panel)
-              └── v1.7 → ... → v2.0 (full digital twin)
+  └── v1.5 (SEAS/LIB/Misload/CURE grounding; 8-function Python ingestion; SQS calibration)
+        └── v1.6 (empirical recalibration — ε_schema as function; phase-aware κ_z;
+              avgPPH trajectory recalibration; 5 figures — current)
+              └── v1.7 (Tailscale phase 1; per-snapshot phase labels; γ Bayesian update)
+                    └── v1.8 → ... → v2.0 (full digital twin)
 
 v2.0 (idealized digital twin — GPS, weather, belt queue, fatigue, ~300-dim EKF)
   └── v2.1 (CURE/SEAS/LIB EKF augmentation; Zone 9-12 structural constant; γ≈0.938 — current)
@@ -177,15 +193,21 @@ v3.0 (purposeful systems + type theory)
               └── v3.3 (coordinator as self-backtracking agent, MDP formalization)
                     └── v3.4 (retrospective D_back; informed priors; tracker integration)
                           └── v3.5 (theory-to-analytics backpropagation; May 4 data grounding; Tailscale)
-                                └── v3.6 (five-sort week as functor; iGate primacy; cross-sort patterns — current)
+                                └── v3.6 (five-sort week as functor; iGate primacy;
+                                      cross-sort patterns — current)
+                                      └── v3.7 (re-anchored avgPPH coordinator belief series;
+                                            anchor-employee Φz refinement)
 
 v4.0 (unified synthesis — concrete→theory→concrete; CURE×PD coupling; Lag Topology;
-       Fidelity Cascade; three structural constants; sort phase state machine — current)
+       Fidelity Cascade; three structural constants; sort phase state machine)
   └── Built on: v1.5 production grounding × v2.1 structural constants × v3.6 purposeful functor
-        └── v4.1 (SLIC→PD mapping; Fidelity Cascade view; phase-aware thresholds; pre-sort mode)
+        └── v4.1 (empirical validation pass over v4.0; ε_schema demoted to function;
+              phase-aware κ_z; ρ_PD/Hub fourth constant; 5 action items issued — current)
+              └── v4.2 (SLIC→PD mapping; Fidelity Cascade view; phase-aware thresholds;
+                    pre-sort mode; MTA Φz computation)
 
 v5.0 (future — multi-hub network dynamics; full EKF deployment; coordinator ML pipeline)
-  └── Built on: v4.0 unified framework × v2.0/v3.x extensions
+  └── Built on: v4.0/v4.1 unified framework × v2.0/v3.x extensions
 ```
 
 Every version is a **formal restriction** of its successors. v1.4 is obtainable from v2.0 by marginalizing out unobserved layers (Theorem 8.1 in v2.0). v2.0 is obtainable from v3.1 by zeroing the purposeful state layer and assuming full compliance. v3.1 is obtainable from v4.0 by restricting the hub network category to a single hub. No version is made obsolete by a higher one — each is the correct model for its level of data availability.
@@ -238,7 +260,9 @@ pandoc <filename>.md \
 | v3.4 | +0 | +1 | 68+ | §10.7–10.9: Retrospective D_back construction (3 event types); informed Φz priors (literature-grounded, Bayesian update); tracker v1.5/v1.6 integration specification |
 | v3.5 | +0 | +2 | 70+ | §12 (expanded, 9 subsections): Full theory-to-analytics backpropagation; iGate schema audit; 21-variable instrument mapping; MTA calibration ground; LTC fidelity chain; Rafael-as-agent MDP trajectory; May 4 causal chain (real data); Tailscale infrastructure |
 | **v3.6** | **+2** | **+4** | **72+** | **§13 (new, 9 subsections): Five-sort week as empirical functor application; iGate data primacy (Prop 13.1); cross-sort volume gradient + day-of-week Φz prior (Prop 13.2); SOR emergence signal; coordinator Bayesian belief update (Def 13.2); Zone 9-12 Φz = 0.677 computed; norm-anchor employee core (35%); induction-driven flow entrainment (Def 13.4); Tailscale Phase 1–4 confirmed deployment spec** |
-| **v4.0** | **+2** | **+5** | **75+** | **Unified synthesis (concrete→theory→concrete). New: CURE×PD Coupling (Thm 5.1 — zone dock pressure from CURE×ZIP truth table); Lag Topology (Def 2.3 — K_live ⊂ K_sornight ⊂ K_nextday); Instrument Complementarity (Prop 4.1); Borrowed Employee Fidelity Gap (Cor 4.1); Fidelity Cascade (Def 6.1, Thm 6.1 — LTC→SEAS→LIB monotone chain with routing accuracy ceiling); three structural constants named and collected (κ₉₋₁₂, γ, ε_schema); Sort Phase State Machine (§9); Self-Backtracking as explicit generative methodology (§8)** |
+| v4.0 | +2 | +5 | 75+ | Unified synthesis (concrete→theory→concrete). New: CURE×PD Coupling (Thm 5.1); Lag Topology (Def 2.3 — K_live ⊂ K_sornight ⊂ K_nextday); Instrument Complementarity (Prop 4.1); Borrowed Employee Fidelity Gap (Cor 4.1); Fidelity Cascade (Def 6.1, Thm 6.1 — LTC→SEAS→LIB monotone chain); three structural constants named (κ₉₋₁₂, γ, ε_schema); Sort Phase State Machine (§9); Self-Backtracking as generative methodology (§8). |
+| **v1.6** | **+2** | **+1** | **42+** | **§§23–25: Empirical recalibration of v1.5. ε_schema(d) function (Thm 23.1, replaces constant); phase-aware κ_z (Def 24.1 four phases + Thm 24.1); avgPPH trajectory recalibration with four candidate empirical series (§25). Five validation figures embedded.** |
+| **v4.1** | **+2** | **0** | **75+** | **Empirical validation pass over v4.0. Theorem 15.1 (ε_schema not constant — refutes v4.0 §7); Theorem 15.2 (phase-aware κ_z — refines v4.0 Thm 5.1); fourth structural constant ρ_PD/Hub ≈ 0.65 added; v4.0 §7 amended (§15.4); five action items issued for the suite (§16). v4.0 §§1–14 otherwise unchanged.** |
 
 ---
 
@@ -262,6 +286,7 @@ pandoc <filename>.md \
 | 14 | 2026-05-12 | v3.6 | New §13 (9 subsections): Five-sort week (05.04–05.08) as empirical functor application. iGate data primacy established (Prop 13.1: SOR volume unreliable due to district-level allocation; ~5% schema offset = Air/DWSSCAN/AUDITS). Weekly volume gradient 118K→89K (γ≈0.938). Day-of-week Φz prior calibration (Prop 13.2). avgPPH trajectory 166→188.6→155 as coordinator Bayesian belief update. Zone 9-12 Φz=0.677 computed. Norm-anchor employee core: 11/31 (35%). Induction-driven flow entrainment (Def 13.4). Tailscale Phase 1-4 confirmed deployment spec. |
 | 15 | 2026-05-12 | v1.5 + v2.1 | **Branch A v1.5:** §§17–22 added — SEAS/LIB/Misload/CURE integration with five-sort empirical grounding. 7-type misload taxonomy. LIB as inverse throughput signal (Theorem 17.1). CURE-PPH coupling (Theorem 21.1). Python 8-function ingestion spec + SQS pipeline. **Branch B v2.1:** §§16–21 added — CURE EKF augmentation (Theorem 16.1 bottleneck regime), SEAS observable (Prop 17.1), LIB state variable (Theorem 18.1, Def 18.1 SFR), Zone 9-12 structural constant (Theorem 19.1: 0.311±0.013), weekly γ decay (Def 20.1, Theorem 20.1), v2.0 theorem reassessment. **CHEMA_Analytics_Roadmap.md:** Integration plan — how all findings flow to tracker, dashboard, DOP Calculator, sort-snapshot analytics, and Tailscale pipeline. Implementation tiers 1–4. |
 | 16 | 2026-05-12 | v4.0 | **Unified synthesis using Self-Backtracking methodology.** Backtracks from the three-branch local optima; regenerates from the concrete (tool architecture, coordinator workflow, DATA object, lag topology). New contributions: CURE×PD Coupling (Theorem 5.1); Lag Topology (Definition 2.3: K_live ⊂ K_sornight ⊂ K_nextday); Instrument Complementarity (Proposition 4.1); Borrowed Employee Fidelity Gap (Corollary 4.1); Fidelity Cascade (Definition 6.1, Theorem 6.1: LTC quiz accuracy → SEAS scan accuracy → LIB service failure rate — monotone chain with routing accuracy ceiling); Three Structural Constants named and formalized (κ₉₋₁₂, γ, ε_schema); Sort Phase State Machine (§9, Phases 0–3); Self-Backtracking as explicit generation methodology (§8). README.md updated with Branch D, full version hierarchy through v5.0 target, and session 16 entry. |
+| 17 | 2026-05-12 | v1.6 (Branch A) + v4.1 (Branch D) | **Empirical validation pass.** Re-ran the v4.0 structural-constants claim against snapshot-resolved 05.04–05.08 data (62 raw xlsx in `in_Sort_05.04.26/` plus four sister day folders, 620 historical sorts in MTA). Three findings: (a) ε_schema is a function not a constant — grows 5%→15% Mon→Fri (Theorem 15.1 / Thm 23.1, refutes v4.0 §7 constant); (b) κ_9-12 is phase-aware — ramps 0.20→0.33 within a single sort across four operationally-defined phases (Theorem 15.2 / Thm 24.1, refines v4.0 Thm 5.1; Definition 24.1 defines phases by elapsed-volume fraction); (c) the v3.6 §13.5 avgPPH trajectory 166→188.6→155 is not reproducible from final exports — four candidate empirical series provided in v1.6 §25.3. Fourth structural constant added: ρ_PD/Hub ≈ 0.65 (PD-belt share of iGate Hub Summary Total). Five validation figures generated and embedded in both v1.6 and v4.1 PDFs (figures/fig_a..e_*.png). Five action items issued for the suite (v4.1 §16): tracker v2.10 Sort Phase chip + day-aware reconciliation threshold + richer DOP module; dashboard phase-profile tile; container v4.10 version-string consistency and Home view tab fix; MTA v1.8 snapshot append + Φz computation + 188.6 hunt; theory v3.7/v1.7/v2.2 variance-day reframing. Author audit document `THEORY_VS_DATA_AUDIT_v1.md` saved in `/Twilight 050426/` for reference; raw computation in `/Twilight 050426/validation_0504_timeline.json`. |
 
 ---
 
